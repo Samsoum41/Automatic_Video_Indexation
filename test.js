@@ -11,7 +11,7 @@ var heading = document.createElement("p");
 var heading_text = document.createTextNode(fichierJSON.nom + " " + fichierJSON.prenom);
 heading.appendChild(heading_text);
 document.body.appendChild(heading);
-
+/*
 $(function() {
     var params = {
         // Request parameters
@@ -37,6 +37,7 @@ $(function() {
         alert("error");
     });
 });
+*/
 /*
 Pour indexer une vidéo avec l'API de Video Indexer, il faut :
 

@@ -3,14 +3,43 @@
     <head>
         <meta charset="utf-8" />
         <title id="titre">Le site de Torben et Samy</title>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>	
     </head>
     <body>
         <h1 class="grosTitre">Bienvenue sur notre service d'indexation de vidéo !</h1>
         <p>Veuillez cliquer sur <a href="https://www.google.com">ce lien</a> pour déposer une vidéo.<br/>
-            Cette vidéo sera ensuite traitée.
+            Cette vidéo sera ensuite traitée. 
         </p>
-        <script src="test.js"></script>
-        <p>Voici une vidéo du cours d'<strong>OBJET</strong> :</p>
+        <script src="test.js"></script> 
+	<script type="text/javascript">
+	 $(function() {
+		  /* var params = {
+			     // Request parameters
+			     "location": "trial",
+			     "accountId": "1a206862-1b40-440c-9057-4a6c2bc9b364",
+			     "allowEdit": "False"
+			    }; */
+
+		   $.ajax({
+			     url: "https://api.videoindexer.ai/Auth/trial/Accounts/1a206862-1b40-440c-9057-4a6c2bc9b364/AccessToken?allowEdit=False",
+			     beforeSend: function(xhrObj){
+				       // Request headers
+				       xhrObj.setRequestHeader("x-ms-client-request-id","");
+				       xhrObj.setRequestHeader("Ocp-Apim-Subscription-Key","fc9726bc506c420f8510a57ea140dbf6");
+				      },
+			     type: "GET",
+			     // Request body
+					   data: "{body}"
+			    })
+		    .done(function(data) {
+			      alert("success " +data);
+			     })
+		    .fail(function() {
+			      alert("error");
+			     });
+		  });
+	</script>
+	<p>Voici une vidéo du cours d'<strong>OBJET</strong> :</p>
         <!--
         <video>
             <source src="https://hippocampus.ec-nantes.fr/pluginfile.php/13368/mod_folder/content/0/Video-1-Introduction.mp4?forcedownload=1">
