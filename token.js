@@ -3,7 +3,7 @@ $(function() {
 		// Request parameters
 		location: "trial",
 		accountId: "1a206862-1b40-440c-9057-4a6c2bc9b364",
-		allowEdit: "true",
+		allowEdit: "true"
 	}; 
 
 	$.ajax({
@@ -18,10 +18,12 @@ $(function() {
 		data: "{body}"
 	})
 		.done(function(data) {
-			alert("success get token " +data);
+			alert("success get token");
+			alert(data);
 		})
 		.fail(function() {
 			alert("error get token");
 		});
 });
+</script>
 

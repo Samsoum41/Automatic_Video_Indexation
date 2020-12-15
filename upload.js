@@ -20,9 +20,12 @@ $(function() {
 		data: "{body}"
 	})
 		.done(function(data) {
-			alert("success ");
+			alert("success upload video");
+			var dataString = JSON.stringify(data);
+			alert(dataString);
 		})
 		.fail(function() {
-			alert("error");
+			alert("error upload video");
 		});
 });
+
