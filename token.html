@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title id="titre">Le site de Torben et Samy</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>	
+  </head>
+  <body>
+    <h1 class="grosTitre">Bienvenue sur notre service d'indexation de vidéo !</h1>
+    <p>Veuillez cliquer sur <a href="https://www.google.com">ce lien</a> pour déposer une vidéo.<br/>
+    Cette vidéo sera ensuite traitée. 
+    </p>
+    <script src="test.js"></script> 
+    <script type="text/javascript">
+      $(function() {
+	      var params = {
+		      // Request parameters
+		      location: "trial",
+		      accountId: "1a206862-1b40-440c-9057-4a6c2bc9b364",
+		      allowEdit: "true",
+		    }; 
+
+	      $.ajax({
+		      url: "https://api.videoindexer.ai/Auth/"+params.location+"/Accounts/"+params.accountId+"/AccessToken?allowEdit="+params.allowEdit,
+		      beforeSend: function(xhrObj){
+			      // Request headers
+			      xhrObj.setRequestHeader("x-ms-client-request-id","");
+			      xhrObj.setRequestHeader("Ocp-Apim-Subscription-Key","fc9726bc506c420f8510a57ea140dbf6");
+			    },
+		      type: "GET",
+		      // Request body
+		      data: "{body}"
+		    })
+		.done(function(data) {
+			alert("success get token " +data);
+		      })
+		.fail(function() {
+			alert("error get token");
+		      });
+	    });
+
+    </script>
+    <p>Voici une vidéo du cours d'<strong>OBJET</strong> :</p>
+    <!--
+      <video>
+      <source src="https://hippocampus.ec-nantes.fr/pluginfile.php/13368/mod_folder/content/0/Video-1-Introduction.mp4?forcedownload=1">
+      </video>
+
+    -->
+    <iframe width="580" height="780" src="https://www.videoindexer.ai/embed/insights/82003bd5-d1bb-46c6-9485-7f16f83a1b7f/1c72eba6c5/?&locale=fr&location=Trial" frameborder="0" allowfullscreen></iframe>
+
+
+  </body>
+</html>
