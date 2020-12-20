@@ -13,12 +13,34 @@
     <script type="text/javascript">
       $(function() {
 	      var params = {
+		      // Request parameters
 		      location: "trial",
 		      accountId: "1a206862-1b40-440c-9057-4a6c2bc9b364",
-		      name: prompt("Please enter the name of the video"),
-		      videoUrl: prompt("Please enter the url of the video"), 
-		      token: prompt("Please enter your account acces token") 
-		    };
+		      allowEdit: "true",
+				  token: "",
+				  name: prompt("Please enter the name of the video"),
+				  videoUrl: prompt("Please enter the url of the video")
+		    }; 
+
+	      $.ajax({
+		      url: "https://api.videoindexer.ai/Auth/"+params.location+"/Accounts/"+params.accountId+"/AccessToken?allowEdit="+params.allowEdit,
+		      beforeSend: function(xhrObj){
+			      // Request headers
+			      xhrObj.setRequestHeader("x-ms-client-request-id","");
+			      xhrObj.setRequestHeader("Ocp-Apim-Subscription-Key","fc9726bc506c420f8510a57ea140dbf6");
+			    },
+		      type: "GET",
+		      // Request body
+		      data: "{body}",
+		      async: false
+		    })
+		.done(function(data) {
+			alert("success get token");
+				    params.token = data;
+		      })
+		.fail(function() {
+			alert("error get token");
+		      });
 
 	      $.ajax({
 		      url: "https://api.videoindexer.ai/"+params.location+"/Accounts/"+params.accountId+"/Videos?name="+params.name+"&privacy=Private&videoUrl="+params.videoUrl+"&indexingPreset=Default&streamingPreset=Default&sendSuccessEmail=False&accessToken="+params.token,
@@ -30,7 +52,8 @@
 			    },
 		      type: "POST",
 		      // Request body
-		      data: "{body}"
+		      data: "{body}",
+				  async: false
 		    })
 		.done(function(data) {
 			alert("success upload video");
@@ -42,7 +65,6 @@
 		      });
 	    });
     </script>
-
     <p>Voici une vidéo du cours d'<strong>OBJET</strong> :</p>
     <!--
       <video>
