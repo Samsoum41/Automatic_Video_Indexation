@@ -1,0 +1,78 @@
+/* Eléments principaux */
+
+body
+{
+	font-family: "Times New Roman", Arial, serif;
+	background: url("images/background_code2.jpg");
+	background-attachment: fixed;
+	color: white;
+	width:90%;
+	margin: auto;
+}
+
+/* Header */
+
+header
+{
+	background-color: rgba(0,0,0,0.8);
+	display: flex;
+	justify-content: space-between;
+	padding: 0px 15px 0px 15px;
+}
+
+nav
+{
+	align-self: flex-end;
+}
+
+nav a
+{
+	font-size: 1.3em;
+	color: white;
+	text-decoration: none;
+}
+
+nav a:hover
+{
+	color: yellow;
+}
+
+ul
+{
+	list-style-type: none;
+	display: flex;
+}
+
+li
+{
+	margin-left: 15px;
+}
+
+/* Section */
+
+section
+{
+	height: 300px;
+	border: 2px solid black;
+	padding: 0 50px;
+}
+
+a
+{
+	color: yellow;
+}
+
+
+/* Footer */
+
+footer
+{
+	background-color: rgba(0,0,0,0.8);
+	display: flex;
+	padding: 15px;
+}
+
+#logo
+{
+	margin-right: 15px;
+}

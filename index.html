@@ -2,27 +2,34 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <title id="titre">Le site de Torben et Samy</title>
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>	
+    <link rel="stylesheet" href="style.css" />
+    <title id="titre">Indexation automatique de contenus de vidéos pédagogiques</title>
   </head>
+
   <body>
-    <h1 class="grosTitre">Bienvenue sur notre service d'indexation de vidéo !</h1>
-    <p>Veuillez cliquer sur <a href="https://www.google.com">ce lien</a> pour déposer une vidéo.<br/>
-    Cette vidéo sera ensuite traitée. 
-    </p>
-    <script src="test.js"></script> 
-    <script src="token.js"></script> 
-    <script src="upload.js"></script> 
-    <script src="videoIndex.js"></script>
-   <p>Voici une vidéo du cours d'<strong>OBJET</strong> :</p>
-    <!--
-      <video>
-      <source src="https://hippocampus.ec-nantes.fr/pluginfile.php/13368/mod_folder/content/0/Video-1-Introduction.mp4?forcedownload=1">
-      </video>
+	<header>
+		<h1 id="titre_principal">
+			Bienvenue sur le service d'indexation automatique de contenus de vidéos pédagogiques de l'Ecole Centrale de Nantes
+		</h1>
 
-    -->
-    <iframe width="580" height="780" src="https://www.videoindexer.ai/embed/insights/82003bd5-d1bb-46c6-9485-7f16f83a1b7f/1c72eba6c5/?&locale=fr&location=Trial" frameborder="0" allowfullscreen></iframe>
+		<nav>
+			<ul>
+				<li><a href="index.html">Acceuil</a></li>
+				<li><a href="upload.html">Upload</a></li>
+				<li><a href="indexation.html">Indexation</a></li>
+			</ul>
+		</nav>
+	</header>
 
+	<section>
+		<h1>Comment indexer une vidéo ?</h1>
+		<p>Vous pouvez <a href="upload.html">ici</a> uploader une vidéo à partir d'une URL. Cette vidéo sera stockée sur un serveur de Microsoft aux Etats-Unis. Ce stockage ne sert qu'au test de l'indexation par le service Video Indexer de Microsoft.</p>
+		<p>Après avoir uploadé votre vidéo, vous devez attendre un certain temps (environ dix minutes) que le service indexe automatiquement la vidéo. Ensuite, vous pouvez <a href="indexation.html">ici</a> recupérér les résultats de l'indexation (titre, mots-clefs, "text scriptuel" avec répères).</p>
+			</section>
 
+	<footer>
+		<img id="logo" src="images/MicrosoftAzure_logo_mini.png" alt="Logo de Microsoft Azure" />
+		<img id="logo" src="images/ECN_logo_mini.png" alt="Logo de l'Ecole Centrale de Nantes" />
+	</footer>
   </body>
 </html>
