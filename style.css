@@ -1,78 +1,52 @@
-/* Eléments principaux */
-
-body
-{
-	font-family: "Times New Roman", Arial, serif;
-	background: url("images/background_code2.jpg");
-	background-attachment: fixed;
-	color: white;
-	width:90%;
-	margin: auto;
+body{
+    margin:0;
+    font-family: 'Titillium Web', sans-serif;
 }
 
-/* Header */
-
-header
-{
-	background-color: rgba(0,0,0,0.8);
-	display: flex;
-	justify-content: space-between;
-	padding: 0px 15px 0px 15px;
+.top-header{
+    position: ri;
+    background-color: #102648;
+    color:#fab600;
+    padding:10px;
+    text-align: right;
+    height: auto;
 }
 
-nav
-{
-	align-self: flex-end;
+.top-header a{
+    padding: 5px;
+    color:#fab600;
+    text-decoration: none;
 }
 
-nav a
-{
-	font-size: 1.3em;
-	color: white;
-	text-decoration: none;
+.normal-header{
+    margin: 20px 60px;
 }
 
-nav a:hover
-{
-	color: yellow;
+.normal-header-content{
+    display: flex;
 }
 
-ul
-{
-	list-style-type: none;
-	display: flex;
+.logo{
+    height: 100px;
 }
 
-li
-{
-	margin-left: 15px;
+.normal-header a{
+    background-color: #102648;
+    color:#fab600;
+    box-shadow: 1px 3px 3px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-size: 15px;
+    width: 150px;
+    height: 40px;
+    padding: 10px;
+    border: none;
+    text-align: center;
+    box-sizing: border-box;
+    margin-top: 20px;
 }
 
-/* Section */
-
-section
-{
-	height: 300px;
-	border: 2px solid black;
-	padding: 0 50px;
-}
-
-a
-{
-	color: yellow;
-}
-
-
-/* Footer */
-
-footer
-{
-	background-color: rgba(0,0,0,0.8);
-	display: flex;
-	padding: 15px;
-}
-
-#logo
-{
-	margin-right: 15px;
+#header-space{
+    box-sizing: border-box;
+    margin-right: 900px;
 }
