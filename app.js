@@ -40,7 +40,7 @@ function getAccountToken(){
 
 // 2e requete
 var paramsRequest2 = {
-    name: prompt("Veuillez entrer le nom de la vidÃ©o"),
+    name: '{string}',
     videoURL: "https://sec.ch9.ms/ch9/4849/d5dd9965-a716-4c9f-baa6-42b33d8f4849/Python1_mid.mp4",
     accessToken: params.accessToken
 }
@@ -93,17 +93,82 @@ function getVideoIndex(){
     type: "POST",
     // Request body
     })
-.done(function(data) {
-    console.log("Ca marche !")
-    params.videoId = data.id 
-    console.log(params.videoId)
-    console.log(data['id'])
+    .done(function(data) {
+        console.log("Ca marche !")
+        params.videoId = data.id 
+        console.log(params.videoId)
+        console.log(data['id'])
     })
-.fail(function(data, error) {
-    console.log("Il y a erreur")
-    console.log("data")
-    console.log(data)
-    console.log("erreur :")
-    console.log(error)
+    .fail(function(data, error) {
+        console.log("Il y a erreur")
+        console.log("data")
+        console.log(data)
+        console.log("erreur :")
+        console.log(error)
     });
+}
+
+
+
+/*
+ * Fais une requête ajax et renvoie la liste des vidéos avec leur nom, id, durée etc
+ */
+function getListVideo(){
+    var videoList;
+    getAccountToken();
+    var paramsRequestListVideo = {
+        "accessToken": params.accessToken
+    };
+    console.log(paramsRequestListVideo.accessToken);
+    $.ajax({
+        url: "https://api.videoindexer.ai/"+ params.location +"/Accounts/"+ params.accountId +"/Videos?" + $.param(paramsRequestListVideo),
+        beforeSend: function(xhrObj){
+            // Request headers
+            xhrObj.setRequestHeader("x-ms-client-request-id","");
+            xhrObj.setRequestHeader("Ocp-Apim-Subscription-Key",params.primaryKey);
+            },
+        type: "GET",
+        async: false
+        })
+        .done(function(data) {
+            videoList = data;
+        })
+        .fail(function(data, error) {
+            alert("Il y a erreur dans la recherche de la liste de vidéos")
+        });
+    return videoList;
+}
+
+function createVideoLi(videoInfos){
+    var ul = document.getElementById('bibliotheque-ul');
+    var li = document.createElement('li');
+    var nom = document.createTextNode(videoInfos["name"] + " ");
+    var videoId = document.createTextNode(videoInfos["id"]+ " ");
+    var duree = document.createTextNode(videoInfos["durationInSeconds"]);
+    li.setAttribute('class', 'video-block');
+    li.appendChild(nom);
+    li.appendChild(videoId);
+    li.appendChild(duree);
+    console.log(li);
+    console.log(ul);
+    ul.appendChild(li);
+}
+/* On a la section d'upload de vidéo, après la section de bibilothèque. 
+ * Pour la bibliothèque, on va alimenter la liste <ul> avec la liste vidéo, 
+ * un <li> contiendra :
+ *      - le nom de la vidéo
+ *      (- une image)
+ *      - transmettre le vidéo ID en paramètre dans le lien.
+ *      - faire un style quand on passe la souris dessus et un sans
+ */
+
+main();
+
+function main(){
+    var listVideo = getListVideo().results;
+    console.log(listVideo);
+    for (var i = 0; i<listVideo.length; i++)
+    {
+        createVideoLi(listVideo[i]);
+    }
 }
