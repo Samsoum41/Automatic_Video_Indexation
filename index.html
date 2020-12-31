@@ -1,35 +1,49 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8" />
-    <link rel="stylesheet" href="style.css" />
-    <title id="titre">Indexation automatique de contenus de vidéos pédagogiques</title>
-  </head>
+    <head>
+        <meta charset="utf-8">
+        <title>Page d'accueil</title>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>	
+        <link href="style.css" rel="stylesheet">
+        <!--Import de la police Titillium-->
+        <link rel="preconnect" href="https://fonts.gstatic.com"> 
+        <link href="https://fonts.googleapis.com/css2?family=Titillium+Web&display=swap" rel="stylesheet"> 
+    </head>
+    <body>
+        <!-- En-tête de la page -->
+        <header>
+            <section class="top-line">
+                <nav>
+                    <a href="https://hippocampus.ec-nantes.fr">Hippocampus</a>
+                    <a>Contact</a>
+                    <a href="https://www.ec-nantes.fr">EC-Nantes</a>
+                </nav>
+            </section>
+            <section>
+                <img class="logo" src="img/logo-ecn.png"/>
+                <h1 id="header-title">Indexeur automatique de vidéos</h1>
+            </section>
+        </header>
+        
+        <!-- Section du formulaire d'upload de vidéo -->
+        <h2>Upload une vidéo</h2>
+        <section>
+            <form>
+                <div>
+                    <label>Nom de la vidéo :</label>
+                    <input type="text">
+                </div>
+                <div>
+                    <label>URL de la vidéo</label>
+                    <input type="text">
+                </div>
+                <a href="upload.html" class="buttons">Upload une vidéo</a>
+            </form>
+        </section>
+        <h2>Bibliothèque</h2>
+        <ul id="bibliotheque-ul">
 
-  <body>
-	<header>
-		<h1 id="titre_principal">
-			Bienvenue sur le service d'indexation automatique de contenus de vidéos pédagogiques de l'Ecole Centrale de Nantes
-		</h1>
-
-		<nav>
-			<ul>
-				<li><a href="index.html">Acceuil</a></li>
-				<li><a href="upload.html">Upload</a></li>
-				<li><a href="indexation.html">Indexation</a></li>
-			</ul>
-		</nav>
-	</header>
-
-	<section>
-		<h1>Comment indexer une vidéo ?</h1>
-		<p>Vous pouvez <a href="upload.html">ici</a> uploader une vidéo à partir d'une URL. Cette vidéo sera stockée sur un serveur de Microsoft aux Etats-Unis. Ce stockage ne sert qu'au test de l'indexation par le service Video Indexer de Microsoft.</p>
-		<p>Après avoir uploadé votre vidéo, vous devez attendre un certain temps (environ dix minutes) que le service indexe automatiquement la vidéo. Ensuite, vous pouvez <a href="indexation.html">ici</a> recupérér les résultats de l'indexation (titre, mots-clefs, "text scriptuel" avec répères).</p>
-			</section>
-
-	<footer>
-		<img class="logo" src="images/MicrosoftAzure_logo_mini.png" alt="Logo de Microsoft Azure" />
-		<img class="logo" src="images/ECN_logo_mini.png" alt="Logo de l'Ecole Centrale de Nantes" />
-	</footer>
-  </body>
+        </ul>
+        <script src="app.js"></script>
+    </body>
 </html>
