@@ -1,0 +1,32 @@
+#inputVideoId
+{
+	margin: 20px 100px;
+}
+
+section
+{
+	display: flex;
+}
+
+article
+{
+	margin-right: 20px;
+}
+
+aside
+{
+	height: 600px;
+	overflow: scroll;
+}
+
+table
+{
+	margin-bottom: 20px;
+	border-collapse: collapse;
+	column-fill: auto;
+}
+
+td
+{
+	border: 1px solid black;
+}

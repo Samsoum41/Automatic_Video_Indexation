@@ -2,53 +2,153 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <title id="titre">Le site de Torben et Samy</title>
+    <link rel="stylesheet" href="indexation.css" />
+    <title id="titre">Indexation</title>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>	
   </head>
   <body>
-    <h1 class="grosTitre">Bienvenue sur notre service d'indexation de vidéo !</h1>
-    <p>Veuillez cliquer sur <a href="https://www.google.com">ce lien</a> pour déposer une vidéo.<br/>
-    Cette vidéo sera ensuite traitée. 
-    </p>
+    <div id="inputVideoId">
+      <label for="videoId">Id de la vidéo</label> : <input placeholder="Please enter the id of the video" name="videoId" id="videoId" size="30"/>
+    </div>
+    <section>
+      <article id="video">
+      </article>
+      <aside>
+	<table id="titres">
+	  <caption>Titres</caption>
+	</table>
+	<table id="mots-clefs">
+	  <caption>Mots-clefs</caption>
+	</table>
+	<table id="transcription">
+	  <caption>Transcription</caption>
+	</table>
+      </aside>
+    </section>
     <script type="text/javascript">
-$(function() {
-	var params = {
-		location: "trial",
-		accountId: "1a206862-1b40-440c-9057-4a6c2bc9b364",
-		videoId : prompt("Please enter the id of the video"),
-		token: prompt("Please enter your account acces token") 
-	};
 
-	$.ajax({
-		url: "https://api.videoindexer.ai/"+params.location+"/Accounts/"+params.accountId+"/Videos/"+params.videoId+"/Index?reTranslate=False&includeStreamingUrls=False&accessToken="+params.token,
-		beforeSend: function(xhrObj){
-			// Request headers
-			xhrObj.setRequestHeader("x-ms-client-request-id","");
-			xhrObj.setRequestHeader("Ocp-Apim-Subscription-Key","fc9726bc506c420f8510a57ea140dbf6");
-		},
-		type: "GET",
-		// Request body
-		data: "{body}"
-	})
-		.done(function(data) {
-			alert("success video index");
-			var dataString = JSON.stringify(data);
-			alert(dataString);
-		})
-		.fail(function() {
-			alert("error video index");
-		});
-});
+      function indexation(videoId){
+	      $(function() {
+		      var params = {
+			      location: "trial",
+			      accountId: "1a206862-1b40-440c-9057-4a6c2bc9b364",
+			      allowEdit: "True",
+			      videoId : videoId, 
+			      token: "" 
+			    };
+
+		      //request get account access token
+		      $.ajax({
+			      url: "https://api.videoindexer.ai/Auth/"+params.location+"/Accounts/"+params.accountId+"/AccessToken?allowEdit="+params.allowEdit,
+			      beforeSend: function(xhrObj){
+				      // Request headers
+				      xhrObj.setRequestHeader("x-ms-client-request-id","");
+				      xhrObj.setRequestHeader("Ocp-Apim-Subscription-Key","fc9726bc506c420f8510a57ea140dbf6");
+				    },
+			      type: "GET",
+			      // Request body
+			      data: "{body}",
+			      async: false
+			    })
+			.done(function(data) {
+				params.token = data;
+			      })
+			.fail(function() {
+				alert("error get account access token");
+			      });
+
+		      //request get video source file url
+		      $.ajax({
+			      url: "https://api.videoindexer.ai/"+params.location+"/Accounts/"+params.accountId+"/Videos/"+params.videoId+"/SourceFile/DownloadUrl?accessToken="+params.token,
+			      beforeSend: function(xhrObj){
+				      // Request headers
+				      xhrObj.setRequestHeader("x-ms-client-request-id","");
+				      xhrObj.setRequestHeader("Ocp-Apim-Subscription-Key","fc9726bc506c420f8510a57ea140dbf6");
+				    },
+			      type: "GET",
+			      // Request body
+			      data: "{body}",
+			      async: false
+			    })
+			.done(function(data) {
+				const articleVideo = document.getElementById("video");
+				articleVideo.innerHTML = "<video src='"+data+"' controls>Indexed video</video>";
+			      })
+			.fail(function() {
+				alert("error get video source file url");
+			      });
+
+		      //request get video index
+		      $.ajax({
+			      url: "https://api.videoindexer.ai/"+params.location+"/Accounts/"+params.accountId+"/Videos/"+params.videoId+"/Index?reTranslate=False&includeStreamingUrls=False&accessToken="+params.token,
+			      beforeSend: function(xhrObj){
+				      // Request headers
+				      xhrObj.setRequestHeader("x-ms-client-request-id","");
+				      xhrObj.setRequestHeader("Ocp-Apim-Subscription-Key","fc9726bc506c420f8510a57ea140dbf6");
+				    },
+			      type: "GET",
+			      // Request body
+			      data: "{body}",
+			      async: false
+			    })
+			.done(function(data) {
+				const tableTitres = document.getElementById("titres");
+				const tableMotsClefs = document.getElementById("mots-clefs");
+				const tableTranscription = document.getElementById("transcription");
+				const topics = data["summarizedInsights"]["topics"];
+				const keywords = data["summarizedInsights"]["keywords"];
+				const transcript = data["videos"][0]["insights"]["transcript"];
+				for(let i in topics){
+					const row = document.createElement("tr");
+					const rowCellName = document.createElement("td");
+					rowCellName.textContent = topics[i]["name"];
+					row.appendChild(rowCellName);
+					const appearances = topics[i]["appearances"];
+					for(let i in appearances){
+						const rowCellAppearance = document.createElement("td");
+						rowCellAppearance.textContent = appearances[i]["startTime"];
+						row.appendChild(rowCellAppearance);
+					      }
+					tableTitres.appendChild(row);
+				      }
+
+				for(let i in keywords){
+					const row = document.createElement("tr");
+					const rowCellName = document.createElement("td");
+					rowCellName.textContent = keywords[i]["name"];
+					row.appendChild(rowCellName);
+					const appearances = keywords[i]["appearances"];
+					for(let i in appearances){
+						const rowCellAppearance = document.createElement("td");
+						rowCellAppearance.textContent = appearances[i]["startTime"];
+						row.appendChild(rowCellAppearance);
+					      }
+					tableMotsClefs.appendChild(row);
+				      }
+
+				for(let i in transcript){
+					const row = document.createElement("tr");
+					const rowCellAdjustedStart = document.createElement("td");
+					rowCellAdjustedStart.textContent = transcript[i]["instances"][0]["adjustedStart"];
+					row.appendChild(rowCellAdjustedStart);
+					const rowCellText = document.createElement("td");
+					rowCellText.textContent = transcript[i]["text"];
+					row.appendChild(rowCellText);
+					tableTranscription.appendChild(row);
+				      }
+			      })
+			.fail(function() {
+				alert("error get video index");
+			      });
+		    });
+	    }
+
+      const inputs = document.getElementsByTagName("input");
+      inputs[0].addEventListener("change", function(e){
+	      var videoId = e.target.value;
+	      indexation(videoId);
+	    })
+
     </script>
-    <p>Voici une vidéo du cours d'<strong>OBJET</strong> :</p>
-    <!--
-      <video>
-      <source src="https://hippocampus.ec-nantes.fr/pluginfile.php/13368/mod_folder/content/0/Video-1-Introduction.mp4?forcedownload=1">
-      </video>
-
-    -->
-    <iframe width="580" height="780" src="https://www.videoindexer.ai/embed/insights/82003bd5-d1bb-46c6-9485-7f16f83a1b7f/1c72eba6c5/?&locale=fr&location=Trial" frameborder="0" allowfullscreen></iframe>
-
-
   </body>
 </html>
